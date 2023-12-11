@@ -1,0 +1,2323 @@
+# A1
+def accept_set(A,Str): 
+   n = int(input("Enter the total no. of student who play %s : "%Str))
+   for i in range(n) :
+      x = input("Enter the name of student %d who play %s : "%((i+1),Str))
+      A.append(x)
+   print("Set accepted successfully");
+
+def display_set(A,Str): 
+   n = len(A)
+   if(n == 0) :
+      print("\nGroup of Students who play %s =  { }"%Str)
+   else :
+      print("\nGroup of Students who play %s =  {"%Str,end=' ')
+      for i in range(n-1) :
+         print("%s,"%A[i],end=' ')
+      print("%s }"%A[n-1]);
+   
+def search_set(A,X) :
+    n = len(A)
+    for i in range(n):
+       if(A[i] == X) :
+          return (1)
+    return (0)
+
+
+def find_intersection_set(A,B,C):
+   for i in range(len(A)): 
+      flag = search_set(B,A[i]);
+      if(flag == 1) :
+          C.append(A[i])
+
+def find_difference_set(A,B,C):
+    for i in range(len(A)): 
+      flag = search_set(B,A[i]);
+      if(flag == 0) :
+          C.append(A[i])    
+
+
+def find_union_set(A,B,C):
+   for i in range(len(A)):
+      C.append(A[i])
+   for i in range(len(B)): 
+      flag = search_set(A,B[i]);
+      if(flag == 0) :
+          C.append(B[i])    
+       
+def Main() :
+   Group_A = []
+   Group_B = []
+   Group_C = []
+   
+   while True :
+       print ("\t1 : Accept the Information")
+       print ("\t2 : List of students who play both cricket and badminton")
+       print ("\t3 : List of students who play either cricket or badminton but not both")
+       print ("\t4 : Number of students who play neither cricket nor badminton")
+       print ("\t5 : Number of students who play cricket and football but not badminton")
+       print ("\t6 : Exit")
+       ch = int(input("Enter your choice : "))
+       Group_R = []       
+       if (ch == 6):
+           print ("End of Program")
+           break
+       elif (ch==1):
+           accept_set(Group_A,"Cricket")
+           accept_set(Group_B,"Badminton")
+           accept_set(Group_C,"Football")
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           display_set(Group_C,"Football")           
+       elif (ch==2):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           find_intersection_set(Group_A,Group_B,Group_R)
+           display_set(Group_R," both Cricket and Badminton")
+       elif (ch==3):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           R1 = []
+           find_union_set(Group_A,Group_B,R1)
+           R2 = []
+           find_intersection_set(Group_A,Group_B,R2)
+           find_difference_set(R1,R2,Group_R)
+           display_set(Group_R," either cricket or badminton but not both")
+       elif (ch==4):
+           display_set(Group_A,"Cricket")
+           display_set(Group_B,"Badminton")
+           display_set(Group_C,"Football")
+           R1 = []
+           find_union_set(Group_A,Group_B,R1)
+           find_difference_set(Group_C,R1,Group_R)
+           display_set(Group_R," neither cricket nor badminton")
+           print("Number of students who play neither cricket nor badminton = %s"%len(Group_R))
+       elif (ch==5):
+           display_set(Group_A,"Cricket")
+           display_set(Group_C,"Football")
+           display_set(Group_B,"Badminton")
+           R1 = []
+           find_intersection_set(Group_A,Group_C,R1)           
+           find_difference_set(R1,Group_B,Group_R)           
+           display_set(Group_R,"cricket and football but not badminton")
+           print("Number of students who play cricket and football but not badminton = %s"%len(Group_R))                 
+       else :
+           print ("Wrong choice entered !! Try again")
+Main()
+quit()
+
+# A2
+
+def accept_marks(A):   
+   n = int(input("Enter the total no. of student : "))
+   for i in range(n) :
+      while True :
+         x = input("Enter the marks scored in FDS for student %d : "%(i+1))
+         if(x == "AB"):
+            x = -1   # indicates Absent students
+            break
+         x = int(x)
+         if(x >= 0 and x <= 30) :
+            break
+         else :
+            print("Plz enter valid marks out of 30")      
+      A.append(x)
+   print("Marks accepted & stored successfully");
+
+def display_marks(A) :
+   print("\nMarks Scored in FDS")
+   for i in range(len(A)):
+      if(A[i] == -1) :
+         print("\tStudent %d : AB"%(i+1))
+      else :
+         print("\tStudent %d : %d"%(i+1,A[i]))
+      
+def search_set(A,X) :
+    n = len(A)
+    for i in range(n):
+       if(A[i] == X) :
+          return (1)
+    return (0)
+
+def find_average_score_of_class(A) :
+   sum = 0
+   for i in range(len(A)) :
+      if(A[i] != -1) :
+         sum = sum + A[i]
+   avg = sum / len(A)
+   display_marks(A)
+   print("\nAverage score of class is %.2f\n\n"%avg)
+   
+def find_highest_and_lowest_score_of_class(A) :
+   max = -1
+   min = 31
+   for i in range(1,len(A)) :
+      if(max < A[i]) :
+         max = A[i]
+         max_ind = i
+      if(min > A[i] and A[i] != -1) :
+         min = A[i]
+         min_ind = i
+   display_marks(A)
+   print("Highest Mark Score of class is %d scored by student %d"%(max,max_ind+1))
+   print("Lowest Mark Score of class is %d scored by student %d"%(min,min_ind+1))
+      
+   
+   
+def find_count_of_absent_students(A) :
+   count = 0
+   for i in range(len(A)):
+      if(A[i] == -1) :
+         count += 1
+   display_marks(A)
+   print("\tAbsent Student Count = %d"%count)
+      
+def display_mark_with_highest_frequency(A) :
+   freq = 0
+   for i in range(len(A)) :
+      count = 0
+      if(A[i] != -1) :
+         for j in range(len(A)):
+            if(A[i] == A[j]) :
+               count += 1
+      if(freq < count) :
+         Marks = A[i]
+         freq = count
+   display_marks(A)
+   print("\nMarks with highest frequency is %d (%d)"%(Marks,freq))
+   
+def main():
+   FDS_Marks = []
+   while True :
+      print ("\t\t1 : Accept FDS Marks")
+      print ("\t\t2 : Average score of class")
+      print ("\t\t3 : Highest score and lowest score of class")
+      print ("\t\t4 : Count of students who were absent for the test")
+      print ("\t\t5 : Display mark with highest frequency")
+      print ("\t\t6 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 6):
+         print ("End of Program")
+         quit()
+      elif (ch == 1) :
+         accept_marks(FDS_Marks)
+         display_marks(FDS_Marks)
+      elif (ch == 2) :
+         find_average_score_of_class(FDS_Marks)
+      elif (ch == 3) :
+         find_highest_and_lowest_score_of_class(FDS_Marks)
+      elif (ch == 4) :
+         find_count_of_absent_students(FDS_Marks)
+      elif (ch == 5) :
+         display_mark_with_highest_frequency(FDS_Marks)
+      else :
+         print ("Wrong choice entered !! Try again")
+
+main()
+
+# A5
+
+def Display_word_with_longest_length() :
+   Str = input("Enter the main string : ")  # Its assumed that string contain only characters and spaces (multile spaces are allowed)
+   M_str = ""
+   i = 0
+   while( i < len(Str)) :
+      word = ""
+      while(Str[i] != ' ') :
+         word += Str[i]
+         i = i + 1
+         if( i == len(Str)) :
+             break
+      if(i != len(Str)) :
+         while(Str[i] == ' ') :
+            i = i + 1
+      if(len(M_str) < len(word)) :
+         M_str = word
+   print("\tWord with longest length is %s having lenght %d\n\n"%(M_str,len(M_str)))
+
+
+def Determine_frequency_of_occurrence_of_particular_character_in_string() :
+   Str = input("Enter the string : ")
+   C = input("Enter the character  : ")
+   print("\tString : %s"%Str)
+   print("\tCharacter : %s"%C)
+   count = 0
+   for i in range(len(Str)) :
+      if(Str[i] == C) :
+         count += 1
+   print("\tFrequency of occurrence of character(%s) in string(%s) is %d\n\n"%(C,Str,count))
+   
+def Check_for_palindrome() :
+   Str = input("Enter the string to be checked : ")
+   b = 0
+   e = len(Str) - 1
+   while( b < e) :
+      if(Str[b] != Str[e]) :
+         break
+      b += 1
+      e -= 1
+   if(b < e) :
+      print("\t%s string is not an palindrome string\n\n"%Str)
+   else :
+      print("\t%s string is an palindrome string\n\n"%Str)
+   
+  
+   
+def display_index_of_first_appearance_of_the_substring() :
+   M = input("Enter the main string : ")
+   S = input("Enter the sub string to check : ")
+   print("Main String : %s"%M)
+   print("Substring String : %s"%S)
+   L1 = len(M)
+   L2 = len(S)
+   if(L1 >= L2) :
+      for i in range((L1 - L2 + 1)) :
+         flag = 1
+         for j in range(L2):
+            if(M[i+j] != S[j]) :
+               flag = 0
+               break
+         if(flag == 1) :
+            print("Substring %s found at index %d\n\n"%(S,i))
+            break;
+      if(flag == 0) :
+         print("Substring not found in the main string\n\n")
+   else :
+      print("Substring is greater than main string\n\n")
+   
+
+
+def Count__occurrences_of_each_word_in_given_string() :
+   Str = input("Enter the main string : ")  # Its assumed that string contain only characters and spaces (multile spaces are allowed)   
+   i = 0
+   Word_array = []
+   Count = []
+   while( i < len(Str)) :
+      word = ""
+      while(Str[i] != ' ') :
+         word += Str[i]
+         i = i + 1
+         if( i == len(Str)) :
+             break
+      if(i != len(Str)) :
+         while(Str[i] == ' ') :
+            i = i + 1
+      if(len(Word_array) == 0) :
+         Word_array.append(word)
+         Count.append(1)
+      else :
+         flag = 1
+         for j in range(len(Word_array)) :
+            if(Word_array[j] == word) :
+               Count[j] += 1
+               flag = 0
+               break
+         if (flag == 1) :
+            Word_array.append(word)
+            Count.append(1)
+   for i in range(len(Word_array)) :
+      print("\t%15s : %d "%(Word_array[i],Count[i]))
+      
+
+def main():
+   while True :
+      print ("\t\t  **** STRING OPERATIONS ****")
+      print ("\t\t1 : Display word with longest length")
+      print ("\t\t2 : Determine the frequency of occurrence of particular character in the string")
+      print ("\t\t3 : Check whether given string is palindrome or not ")
+      print ("\t\t4 : Display index of first appearance of the substring")
+      print ("\t\t5 : Count the occurrences of each word in a given string")
+      print ("\t\t6 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 6):
+         print ("End of Program")
+         quit()
+      elif (ch == 1) :
+         Display_word_with_longest_length()
+      elif (ch == 2) :
+         Determine_frequency_of_occurrence_of_particular_character_in_string()
+      elif (ch == 3) :
+         Check_for_palindrome()
+      elif (ch == 4) :
+         display_index_of_first_appearance_of_the_substring()
+      elif (ch == 5) :
+         Count__occurrences_of_each_word_in_given_string()
+      else :
+         print ("Wrong choice entered !! Try again")
+
+main()
+
+#A7
+
+def construct_magic_square_matrix(M,n) :    
+    for i in range(n) :
+       A = []
+       for j in range (n) :
+          A.append(int(-1))
+       M.append(A)
+    i = 0
+    j = int((n - 1) / 2)
+    s = 1
+    count = 0
+    while(count < (n * n)) :
+        M[i][j] = s
+        s = s + 1
+        count = count + 1
+        
+        if(i == 0) :
+            ni = n - 1
+        else:
+            ni = i - 1;
+        if(j == 0) :
+            nj = n - 1
+        else:
+            nj = j - 1;
+        if(M[ni][nj] != -1) :
+            ni = int((i + 1 ) % n)
+            nj = j
+        i = ni
+        j = nj
+        
+    print("\nMagic Square Matrix constructed successfully\n")
+
+
+def display_matrix(M,n): 
+   print("Magic Square Matrix (%d,%d) : "%(n,n))
+   for i in range(n) :
+      print("\t\t",end=' ')
+      for j in range(n):
+          print("%2d"%M[i][j],end='   ')
+      print("")	
+   print("Sum in each row & each column = %d"%int(n*(n*n+1)/2)) 
+
+       
+
+def main():
+   
+   while True :
+       print("\t\t\t1: Find Magic Square");
+       print("\t\t\t2: Exit");
+       ch = int(input("Enter your choice : "))       
+       if (ch == 2):
+           print ("End of Program")
+           break
+       elif (ch==1):
+           M = []
+           n = int(input("\nEnter the order of the Square Matrix (n,n) : "))
+           construct_magic_square_matrix(M,n);
+           display_matrix(M,n)	
+       else :
+           print ("Wrong choice entered !! Try again")
+
+main()
+quit()
+
+#B11A
+
+def accept_array(A): 
+   n = int(input("Enter the total no. of student : "))
+   for i in range(n):
+      x = int(input("Enter the  roll no of student %d : "%(i+1)))
+      A.append(x)
+   print("Student Info accepted successfully\n\n")
+   return n
+
+def display_array(A,n): 
+   if(n == 0) :
+      print("\nNo records in the database")
+   else :
+      print("Students  Array : ",end=' ')
+      for i in range(n) :
+         print("%d  "%A[i],end=' ')
+      print("\n");
+
+
+def Linear_Search(A,n,X) :
+   for i in range(n) :
+      if(A[i] == X) :
+         return i      # found so returning the position i.e index
+   return -1       # Not  found
+
+
+def Sentinel_Search(A,n,X) :
+   last = A[n-1]
+   i = 0
+   A[n-1] = X    # Here X is the roll_no to be searched.
+   while(A[i] != X) :
+      i  = i  +1
+   A[n-1] = last
+   if( (i < n-1) or (X == A[n-1]) ) :
+      return i    #roll_no found at location i
+   else :
+      return -1    # roll_no not found"
+
+
+def Main() :   
+   A = []
+   while True :
+      print ("\t1 : Accept & Display Students info ")      
+      print ("\t2 : Linear Search")
+      print ("\t3 : Sentinel Search")
+      print ("\t4 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 4):
+         print ("End of Program")
+         quit()
+      elif (ch==1):
+         A = []
+         n = accept_array(A)
+         display_array(A,n)
+      elif (ch==2):
+         X = int(input("Enter the roll_no to be searched : "))
+         flag  = Linear_Search(A,n,X)
+         if(flag == -1) :
+            print("\tRoll no to be Searched not Found\n")
+         else :
+            print("\tRoll no found at location %d"%(flag + 1))
+      elif (ch==3):
+         X = int(input("Enter the roll_no to be searched : "))
+         flag  = Sentinel_Search(A,n,X)
+         if(flag == -1) :
+            print("\tRoll no to be Searched not Found\n")
+         else :
+            print("\tRoll no found at location %d"%(flag + 1))            
+      else :
+           print ("Wrong choice entered !! Try again")
+
+
+Main()
+
+#b11B
+
+def accept_array(A): 
+   n = int(input("Enter the total no. of student : "))
+   print("Input roll numbers in sorted order")
+   for i in range(n):
+      x = int(input("Enter the  roll no of student %d : "%(i+1)))
+      A.append(x)
+   print("Student Info accepted successfully\n\n")
+   return n
+
+def display_array(A,n): 
+   if(n == 0) :
+      print("\nNo records in the database")
+   else :
+      print("Students  Array : ",end=' ')
+      for i in range(n) :
+         print("%d  "%A[i],end=' ')
+      print("\n");
+
+
+def Recursive_Binary_Search(A,s,l,X) :
+   if(s <= l ) :
+      mid = int((s + l) / 2)
+      if(A[mid] == X) :
+         return mid      # Found
+      else :
+         if(X < A[mid] ) :
+            return Recursive_Binary_Search(A,s,mid-1,X)
+         else :
+            return Recursive_Binary_Search(A,mid+1,l,X)
+   return -1 # NOT FOUND
+
+
+
+def Iterative_Binary_Search(A,n,X) :
+   s = 0
+   l = n-1
+   while(s <= l ) :
+      mid = int((s + l) / 2)
+      if(A[mid] == X) :
+         return mid       # Found
+      else :
+         if (X < A[mid] )  :
+            l = mid-1
+         else :
+            s = mid+1
+   return -1; #NOT FOUND
+
+
+#Returns index of x if present,  else returns -1 
+def Fibonacci_Search(A,n,X) :
+   f1 = 0
+   f2 = 1
+   f3 = f1 + f2
+   offset = -1
+   while (f3 < n) :
+      f1 = f2
+      f2 = f3
+      f3  = f1 + f2
+   while (f3 > 1) :
+      i = min(offset+f1, n-1)
+      if(A[i] == X) :
+         return i        #Found
+      else :
+         if (X < A[i] ) :   # left substudent (66 % or 2/3 student)
+            f3  = f1
+            f2 = f2 - f1
+            f1 = f3 - f2
+         else :     # right substudent ( 33 % or 1/3 student)
+            f3  = f2
+            f2 = f1
+            f1 = f3 - f2
+            offset = i
+   if(f2 == 1 and (offset+1) < n and A[offset + 1] == X) :      
+      return offset+1      # Found
+   return -1    #NOT FOUND
+
+
+def Main() :   
+   A = []
+   while True :
+      print ("\t1 : Accept & Display Students info ")      
+      print ("\t2 : Recursive Binary Search")
+      print ("\t3 : Iterative Binary Search")
+      print ("\t4 : Fibonacci Search")
+      print ("\t5 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 5):
+         print ("End of Program")
+         quit()
+      elif (ch==1):
+         A = []
+         n = accept_array(A)
+         display_array(A,n)
+      elif (ch==2):
+         X = int(input("Enter the roll_no to be searched : "))
+         flag  = Recursive_Binary_Search(A,0,n-1,X)
+         if(flag == -1) :
+            print("\tRoll no to be Searched not Found\n")
+         else :
+            print("\tRoll no found at location %d"%(flag + 1))
+      elif (ch==3):
+         X = int(input("Enter the roll_no to be searched : "))
+         flag  = Iterative_Binary_Search(A,n,X)
+         if(flag == -1) :
+            print("\tRoll no to be Searched not Found\n")
+         else :
+            print("\tRoll no found at location %d"%(flag + 1)) 
+      elif (ch==4):
+         X = int(input("Enter the roll_no to be searched : "))
+         flag  = Fibonacci_Search(A,n,X)
+         if(flag == -1) :
+            print("\tRoll no to be Searched not Found\n")
+         else :
+            print("\tRoll no found at location %d"%(flag + 1))            
+      else :
+           print ("Wrong choice entered !! Try again")
+
+Main()
+
+#B14
+
+def accept_array(A): 
+   n = int(input("Enter the total no. of student : "))
+   for i in range(n):
+      x = float(input("Enter the  first year percentage of student %d : "%(i+1)))
+      A.append(x)
+   print("Array accepted successfully\n\n");
+
+def display_array(A): 
+   n = len(A)
+   if(n == 0) :
+      print("\nNo records in the database")
+   else :
+      print("Array of FE Marks : ",end=' ')
+      for i in range(n) :
+         print("%.2f  "%A[i],end=' ')
+      print("\n");
+
+
+def Selection_sort(A) :
+   n = len(A)
+   for pos in range(n-1):
+      min_ind = pos
+      for i in range(pos + 1, n) :
+         if(A[i] < A[min_ind]) :
+            min_ind = i
+      temp = A[pos]
+      A[pos] = A[min_ind]
+      A[min_ind] = temp
+
+def Bubble_sort(A) :
+   n = len(A)
+   for Pass in range(1,n) :
+      for i in range(n-Pass) :
+         if(A[i] < A[i+1]) :
+            temp = A[i]
+            A[i] = A[i+1]
+            A[i+1] = temp
+      
+def Main() :   
+   A = []
+   while True :
+      print ("\t1 : Accept & Display the FE Marks")
+      print ("\t2 : Selection Sort Ascending order")
+      print ("\t3 : Bubble sort Descending order and display top five scores")
+      print ("\t4 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 4):
+         print ("End of Program")
+         quit()
+      elif (ch==1):
+         accept_array(A)
+         display_array(A)
+      elif (ch==2):
+         print("Marks before sorting")
+         display_array(A)
+         Selection_sort(A)
+         print("Marks after sorting")
+         display_array(A)
+      elif (ch==3):
+         print("Marks before sorting")
+         display_array(A)
+         Bubble_sort(A)
+         print("Marks after sorting")
+         display_array(A)
+         if(len(A) >= 5) :
+            print("Top Five Scores : ")
+            for i in range(5) :
+               print("\t%.2f"%A[i])
+         else :
+            print("Top Scorers : ")
+            for i in range(len(A)) :
+               print("\t%.2f"%A[i])                  
+      else :
+           print ("Wrong choice entered !! Try again")
+
+
+Main()
+
+#B15
+
+def accept_array(A): 
+   n = int(input("Enter the total no. of student : "))
+   for i in range(n):
+      x = float(input("Enter the  Second year percentage of student %d : "%(i+1)))
+      A.append(x)
+   print("Array accepted successfully\n\n");
+
+def display_array(A): 
+   n = len(A)
+   if(n == 0) :
+      print("\nNo records in the database")
+   else :
+      print("Array of SE Marks : ",end=' ')
+      for i in range(n) :
+         print("%.2f  "%A[i],end=' ')
+      print("\n");
+
+
+def Insertion_sort(A) :
+   n = len(A)
+   for i in range(1,n) :
+      element = A[i]
+      j  = i-1
+      while( j >= 0) :
+         if (A[j] <= element) :
+            break
+         else :
+            A[j+1] = A[j]
+            j = j - 1
+      A[j+1] = element
+
+
+def Insertion_sort_gap(A,n,gap,s) :
+   for i in range(s+gap,n,gap) :
+      element = A[i]
+      j = i - gap
+      while( j >=0 ) :
+         if(A[j] <= element) :
+            break;
+         else :
+            A[j+gap] = A[j]
+            j = j - gap
+      A[j+gap] = element;
+  
+def Shell_sort(A) :
+   n = len(A)
+   gap = int(n / 2)
+   while( gap > 0) :
+      for s in range(gap) :
+         Insertion_sort_gap(A,n,gap,s)
+      gap = int(gap / 2)
+
+
+
+def Main() :   
+   A = []
+   while True :
+      print ("\t1 : Accept & Display the SE Marks")
+      print ("\t2 : Insertion Sort Ascending order")
+      print ("\t3 : Shell sort Ascending order and display top five scores")
+      print ("\t4 : Exit")
+      ch = int(input("Enter your choice : "))
+      if (ch == 4):
+         print ("End of Program")
+         quit()
+      elif (ch==1):
+         A = []
+         accept_array(A)
+         display_array(A)
+      elif (ch==2):
+         print("Marks before sorting")
+         display_array(A)
+         Insertion_sort(A)
+         print("Marks after sorting")
+         display_array(A)
+      elif (ch==3):
+         print("Marks before sorting")
+         display_array(A)
+         Shell_sort(A)
+         print("Marks after sorting")
+         display_array(A)
+         n =len(A)
+         if(n >= 5) :
+            print("Top Five Scores : ")
+            for i in range(n-1,n-6,-1) :
+               print("\t%.2f"%A[i])
+         else :
+            print("Top Scorers : ")
+            for i in range(n-1,-1,-1) :
+               print("\t%.2f"%A[i])                  
+      else :
+           print ("Wrong choice entered !! Try again")
+
+
+Main()
+
+#C19
+
+#include <iostream>
+#include<string>
+using namespace std;
+
+class list;
+
+class node
+{
+	int prn;
+	string name;
+	node *next;
+public:
+	node(int x,string nm)
+{
+		prn=x;
+		next=NULL;
+		name=nm;
+}
+
+friend class list;
+};
+class list
+{
+	node *start;
+public:
+	list(){
+		start=NULL;
+	}
+	void create();
+	void display();
+	void insertAtBeginning();
+	void insertAtEnd();
+	void insertAfter();
+	void deleteAtFirst();
+	void deleteByValue();
+	void deleteAtEnd();
+	int computeTotal();
+	void sortList();
+	void concatList(list &q1);
+	void displayRev(node *t);
+	bool reverseDisplay() //function is only for passing start as argument to recursive function
+         {
+        	 if(start==NULL)
+        		return false;
+        	 node *temp=start;
+        	 displayRev(temp);
+        	 //cout<<"(President)";
+        	 return true;
+         }
+};
+void list::displayRev(node *t)
+{
+	if(t==NULL)
+		return;
+	else
+	{
+		displayRev(t->next);
+		cout<<"\nPRN NO:"<<t->prn<<" Name: "<<t->name;
+	}
+}
+void list::create()
+{
+	int no;
+	string nam;
+	if(start==NULL)
+	{
+		cout<<"Enter PRN number: ";
+		cin>>no;
+		cout<<"Enter name: ";
+		cin>>nam;
+		cout<<nam;
+		start=new node(no,nam);
+		cout<<"\n====== List Created =====";
+		
+	}
+	else
+	{
+		cout<<"\nList is already created.";
+	}
+}
+void list::display()
+{
+	node *t;
+	t=start;
+	if(start==NULL)
+		cout<<"\nList is Empty";
+	else
+	{ cout<<"\n====== List: ======\n";
+		while(t!=NULL){
+			cout<<t->prn<<"  "<<t->name<<" \n";
+					t=t->next;
+		}
+		//cout<<t->prn<<"  "<<t->name<<" \n";
+	}
+}
+void list::insertAtBeginning()
+{
+	int no;
+	string nam;
+ node *temp;
+ if(start==NULL)
+ {
+	 create();
+ }
+ else
+ {
+	 cout<<"\nEnter PRN number: ";
+	 cin>>no;
+	 cout<<"Enter name: ";
+	 cin>>nam;
+	 //cout<<nam;
+	 temp=new node(no,nam);
+	 temp->next=start;
+	 start=temp;;
+	 cout<<"Inserted  "<<temp->name<<" at the beginning.";
+ }
+}
+void list::insertAtEnd()
+{
+	int no;
+	string nam;
+	node *t;
+	if(start==NULL)
+		create();
+	else
+	{
+	 cout<<"\nEnter PRN number: ";
+	 cin>>no;
+	 cout<<"Enter name: ";
+	 cin>>nam;
+	 t=start;
+	 while(t->next!=NULL)
+	 	t=t->next;
+	 	
+	 	node*p=new node(no,nam);
+	 	t->next=p;
+	}
+}
+void list::insertAfter()
+{
+	int prev_no;
+	cout<<"\nENter PRN No. after do you want insert:";
+	cin>>prev_no;
+	node *t;
+	t=start;
+	string nam;
+	int flag=0,no;
+	while(t!=NULL)
+	{
+		if(t->prn==prev_no)
+		{
+			flag=1;break;
+		}
+		t=t->next;
+	}
+	if(flag==1)
+	{
+		node *p;
+		cout<<"\nEnter PRN number: ";
+	 cin>>no;
+	 cout<<"Enter name: ";
+	 cin>>nam;
+	 p=new node(no,nam);
+	 p->next=t->next;
+	 t->next=p;
+	}
+	else
+	{
+		cout<<"\n"<<prev_no<<" is not in list.";
+	}
+	
+}
+
+void list::deleteAtFirst()
+{
+	node *t;
+	if(start==NULL)
+		cout<<"\nClub is Empty..";
+	else
+	{
+	t=start;
+	start=start->next;
+	t->next=NULL; //Not necessary
+	delete t;
+	cout<<"\nPresident deleted..";
+}
+}
+
+void list::deleteByValue()
+{
+	int no,flag=0;
+	node *t,*prev;
+	if(start==NULL)
+		cout<<"\nList/Club is empty;";
+	else
+	{
+		cout<<"\nEnter PRN no. of member to be deleted: ";
+		cin>>no;
+		t=start->next; //t=start if we have to delete precident also.. start->next is first member
+		while(t->next!=NULL)
+		{
+			if(t->prn==no){
+				flag=1;
+				break;
+			}
+			prev=t;
+			t=t->next;
+		}
+		if(flag==1)
+		{
+			prev->next=t->next;
+			t->next=NULL;
+			delete t;
+			cout<<"\nMember with prn no: "<<no<<" is deleted.";
+		}
+		else
+			cout<<"\nMember not found in List./president or secretary cannot be deleted.";
+	}
+}
+void list::deleteAtEnd()
+{
+	node *t,*prev;
+	t=start;
+		if(start==NULL)
+		cout<<"\nClub is Empty..";
+	else
+	{
+	while(t->next!=NULL)
+	{
+		prev=t;
+		t=t->next;
+	}
+	prev->next=NULL;
+	delete t;
+	cout<<"\nSecretary Deleted.";
+}
+}
+int list::computeTotal()
+{
+node *t;
+int count=0;
+t=start;
+if(start==NULL)
+{
+	cout<<"\nList is empty.";
+	return 0;
+}
+while(t!=NULL)
+{
+count++;
+t=t->next;
+}
+
+return count;
+}
+
+void list::sortList()
+{
+	node *i,*j,*last=NULL;
+	int tprn;
+	string tname;
+
+if(start==NULL)
+{
+	cout<<"\nList is empty.";
+	return ;
+}
+for(i=start;i->next!=NULL;i=i->next)
+{
+	for(j=start;j->next!=last;j=j->next)
+	{
+		if((j->prn)>(j->next->prn))
+		{
+			tprn=j->prn;
+			tname=j->name;
+			j->prn=j->next->prn;
+			j->name=j->next->name;
+
+			j->next->prn=tprn;
+			j->next->name=tname;
+
+		}
+	}
+}
+cout<<"\n List is sorted.";
+display();
+}
+void list::concatList(list &q1)
+{
+	node *t,*p;
+	t=q1.start;
+	if(t==NULL)
+	{
+		cout<<"\nList 2 is empty";
+		return;
+	}
+	p=start; //first list
+	while(p->next!=NULL)
+	{
+		p=p->next;
+	}
+	p->next=t;
+	q1.start=NULL; //second list is set to  null
+	cout<<"\nAfter concatenationlist";
+	display();
+	
+}
+int main() {
+	list *l;
+	int choice,selectList;
+	list l1,l2;
+	l=&l1;
+	X:cout<<"\nSelect List\n1.List 1\n2.List 2\nEnter choice: ";
+	cin>>selectList;
+
+	if(selectList==1)
+	{
+		l=&l1;
+	}
+	else if(selectList==2)
+	{
+		l=&l2;
+	}
+	else
+	{
+		cout<<"\nWrong list Number.";
+		goto X;
+	}
+	do
+	{
+		cout<<"\n1. create\n2.Insert President\n3.Insert secretary\n4.insert after position(member)\n5.Display list"
+		<<"\n6.Delete President\n7.Delete Secretary\n8.Delete Member\n9.Find total No. of members\n10.Sort list\n11. Reselect List ++--##"
+		<<"\n12.Combine lists\n13.Reverse Display\n0. Exit\nENter your choice:\t";
+		cin>>choice;
+
+		switch(choice)
+		{
+			case 1: l->create();
+				break;
+			case 2:	l->insertAtBeginning();
+				break;
+			case 3: l->insertAtEnd();
+				break;
+			case 4: l->insertAfter();
+				break;
+			case 5: l->display();
+				break;
+			case 6: l->deleteAtFirst();
+				break;
+			case 7: l->deleteAtEnd();
+				break;
+			case 8: l->deleteByValue();
+				break;
+			case 9:	cout<<"\nTotal members(including President & Secretary): "<<l->computeTotal();
+				break;
+			case 10: l->sortList();
+			break;
+			case 11:
+				goto X;
+				break;
+				case 12:
+					l1.concatList(l2);
+					break;
+				case 13:
+					l->reverseDisplay();
+					break;
+			deafult:
+				 cout<<"Wrong choice";
+		}
+	}while(choice!=0);
+cout<<"\n========== GOOD BYE ====================\n";
+	
+	return 0;
+}
+
+#C22
+
+#include<iostream>
+using namespace std;
+struct node
+{    int roll;
+      struct node *next;
+};
+class info
+{        node *head1=NULL,*temp1=NULL,*head2=NULL,*temp2=NULL,*head=NULL,*temp=NULL,*h1=NULL,*head3=NULL,*temp3=NULL;
+        int c,i,f,j,k;
+       
+        public:
+    
+            node  *create();
+            void insert();
+            void allstud();
+            void vanila();
+            void butters();
+            void uice();
+            void nice();
+            void notice();
+            void ovanila();
+            void obutters();
+            void display();   
+
+           
+            
+} ;        
+node *info::create()
+{   node *p=new(struct node);
+     cout<<"enter student rollno\n";
+     cin>>c;
+     p->roll=c;
+     p->next=NULL;
+     return  p;
+  } 
+  void info::insert()
+  { 
+       node *p=create();
+   
+     if(head==NULL)
+     {    head=p;
+     }
+    else
+    {      temp=head;
+          while(temp->next!=NULL)
+          {    temp=temp->next;   }
+              temp->next=p;
+     }        
+         
+   }
+   void info::display()
+   {  temp=head;
+      while(temp->next!=NULL)
+      { cout<<"\n"<<temp->roll;
+        temp=temp->next;
+      } cout<<"\n"<<temp->roll;
+   }
+   void info::allstud()
+   {cout<<"enter no. of students\n";
+       cin>>k;
+        head=NULL;
+       for(i=0;i<k;i++)
+       {    insert();
+             h1=head;
+          
+       }  display();
+       head=NULL;
+    }
+    void info::vanila()
+    {
+       cout<<"enter no. of  students who like vanila\n";
+       cin>>k;
+        head=NULL;
+       for(i=0;i<k;i++)
+       { insert();
+         head1=head;
+          
+       }  display();
+        head=NULL;
+     }
+     void info::butters()
+     {
+      cout<<"enter no. of students who like butterscotch\n";
+       cin>>j;
+       for(i=0;i<j;i++)
+       { insert();
+         head2=head;
+        
+       } display();
+       head=NULL;
+     }
+      void info::uice()
+{    cout<<"students who like vanila or butterscotch\n";
+     temp1=head1;
+     while(temp1!=NULL)
+     {
+       node *p=new(struct node);
+       p->roll=temp1->roll;
+       p->next=NULL;     
+     if(head3==NULL)
+     {    head3=p;
+     }
+    else
+    {      temp3=head3;
+          while(temp3->next!=NULL)
+          {    temp3=temp3->next;   }
+              temp3->next=p;
+     }
+       
+       temp1=temp1->next;
+     }
+     temp2=head2;
+     while(temp2!=NULL)
+     {    f=0;
+         temp1=head1;
+         while(temp1!=NULL)
+         {
+         if(temp2->roll==temp1->roll)
+         { f=1;                   }
+          temp1=temp1->next;
+         } 
+       
+        
+    
+     if(f==0)
+     {  
+         node *p=new(struct node);
+       p->roll=temp2->roll;
+       p->next=NULL;     
+       if(head3==NULL)
+        {    head3=p;
+        }
+       else
+       {      temp3=head3;
+          while(temp3->next!=NULL)
+          {    temp3=temp3->next;   }
+              temp3->next=p;
+       }
+  }
+      temp2=temp2->next;     
+     }
+     temp3=head3;
+      while(temp3->next!=NULL)
+      { cout<<"\n"<<temp3->roll;
+        temp3=temp3->next;
+      } cout<<"\n"<<temp3->roll;
+}
+
+
+void info::ovanila()
+{
+       cout<<"\nstudents  like only vanila \n";
+       temp1=head1;
+       while(temp1!=NULL)
+       {  temp2=head2;
+          f=0;
+          while(temp2!=NULL)
+          {   if(temp1->roll==temp2->roll)
+              {  f=1;              }
+               temp2=temp2->next;
+          } 
+         
+          if(f==0)
+          { cout<<"\n"<<temp1->roll;    }
+             temp1=temp1->next;
+        }
+       
+}
+void info::obutters()
+{
+    cout<<"\nstudents like only butterscotch\n";
+        temp2=head2;
+       while(temp2!=NULL)
+       {  temp1=head1;
+          f=0;
+          while(temp1!=NULL)
+          {   if(temp2->roll==temp1->roll)
+              {  f=1;              }
+               temp1=temp1->next;
+          } 
+         
+          if(f==0)
+          { cout<<"\n"<<temp2->roll;    }
+             temp2=temp2->next;
+        }
+       
+            
+}
+void info::nice()
+{
+       cout<<"\nstudents who like both vanila and butterscotch\n";
+       temp1=head1;
+       while(temp1!=NULL)
+       { temp2=head2;
+         while(temp2!=NULL)
+         {  if(temp1->roll==temp2->roll)
+             { cout<<"\n"<<temp1->roll;   }
+              temp2=temp2->next;
+          }
+            
+            temp1=temp1->next;
+        }
+        
+}
+ void info::notice()
+ {
+
+    cout<<"\nstudents who like neither vanila nor butterscotch\n";
+    temp=h1;
+       while(temp!=NULL)
+       {  temp3=head3;
+          f=0;
+          while(temp3!=NULL)
+          {   if(temp->roll==temp3->roll)
+              {  f=1;              }
+               temp3=temp3->next;
+          } 
+         
+          if(f==0)
+          { cout<<"\n"<<temp->roll;    }
+             temp=temp->next;
+        }
+      
+}
+ 
+int main()
+  { info s;
+  int i;
+   
+          char ch;
+       do{
+          cout<<"\n choice the options\n";
+          cout<<"\n  1. To enter all students rollno \n ";
+          cout<<"\n  2. To enter the rollno of student who like vanila\n";
+          cout<<"\n  3.  To enter the rollno of student who like butterscotch\n";
+          cout<<"\n  4.  To display the rollno of student who like vanila or butterscotch\n";
+          cout<<"\n  5.  To display the rollno of student who like only vanila\n";
+          cout<<"\n  6.  To display the rollno of student who like only butterscotch\n";
+          cout<<"\n  7.  To display the rollno of student who like both vanila and butterscotch\n ";
+          cout<<"\n  8.  To display the rollno of student who neither like vanila nor butterscotch\n";
+        
+  
+          cin>>i;
+         switch(i)
+         {        case 1:   s.allstud();
+                                  break;
+         
+                 case 2:   s.vanila(); 
+                                  break;
+                  case 3: s.butters();
+                                  break;
+                  case 4:   s.uice();
+                                  break;
+                  case 5:   s.ovanila();
+                                  break;
+                  case 6:   s. obutters();
+                                  break;
+                  case 7:   s.nice(); 
+                                  break;
+                  case 8:   s.notice();
+                                  break;      
+                
+               
+                                        
+                  default:  cout<<"\n unknown choice";
+          }
+            cout<<"\n do you want to continue enter y/Y \n";
+            cin>>ch;
+       
+       }while(ch=='y'||ch=='Y');   
+
+return 0;
+}
+
+#C23
+
+#include<iostream>
+using namespace std;
+class binary;
+class node
+{	
+	node *prev;
+	bool n;
+	node *next;
+public:
+	node()
+	{
+		prev=next=NULL;
+	}
+	node(bool b) 
+	{
+		n=b;
+		prev=next=NULL;
+	}
+	friend class binary;
+};
+
+class binary
+{
+	node *start;
+	
+	public:
+		binary()
+		{
+			start=NULL;
+		}
+		void generateBinary(int no);
+		void displayBinary();
+		void onesComplement();
+		void twoscomplement();
+		binary operator +(binary n1);
+	        bool addBitAtBegin(bool val)
+	       {
+		node *nodee=new node(val);
+		 if(start==NULL)
+		{
+			start=nodee;
+		}
+		else
+		{
+			nodee->next=start;
+			start->prev=nodee;
+			start=nodee;
+		}
+		return true;
+	}
+};
+
+void binary::generateBinary(int no)
+{
+	bool rem;
+	node *p;
+	rem=no%2;
+	start=new node(rem);
+	no=no/2;
+	while(no!=0)
+	{
+		rem=no%2;
+		no=no/2;
+		
+	/*
+		if(start==NULL)
+		{
+			start=new node(rem);
+		//	cout<<" Start prev: "<<start->prev;
+		//	cout<<" Start next: "<<start->next ;
+			
+		}
+		else
+		{
+		*/
+			p=new node(rem);
+			p->next=start;
+			start->prev=p;
+		//	cout<<" Start prev: "<<start->prev->n;
+		//	cout<<"   p->n"<<p->n;
+			start=p;
+			
+		//}
+	}
+}
+void binary::displayBinary()
+{
+	node *t;
+	t=start;
+	while(t!=NULL)
+	{
+		cout<<t->n;
+		t=t->next;
+	}
+	
+}
+void binary::onesComplement()
+{
+	node *t;
+	t=start;
+	
+	while(t!=NULL)
+	{
+		if(t->n==0)
+			t->n=1;
+		else
+			t->n=0;
+		
+		t=t->next;
+		
+	}
+}
+binary binary::operator +(binary n1)
+{
+	binary sum;
+	node *a=start;
+	node *b=n1.start;
+//	bit *s=sum.start;
+	bool carry=false;
+	while(a->next!=NULL)
+		a=a->next;
+	while(b->next!=NULL)
+		b=b->next;
+	
+	while(a!=NULL && b!=NULL)
+	{
+		sum.addBitAtBegin((a->n)^(b->n)^carry);
+		carry=((a->n&& b->n) || (a->n&& carry) || (b->n && carry));
+		
+		a=a->prev;
+		b=b->prev;
+	}
+	while(a!=NULL)
+	{
+		sum.addBitAtBegin(a->n^carry);
+		a=a->prev;
+	}
+	while(b!=NULL)
+	{
+		sum.addBitAtBegin(b->n^carry);
+		b=b->prev;
+	}
+	sum.addBitAtBegin(carry);
+	return sum;
+}
+void binary::twoscomplement()
+{
+	onesComplement();
+	bool carry=1;
+	node *t;
+	t=start;
+	while(t->next!=NULL)
+	{
+		t=t->next;
+	}
+	while(t!=NULL)
+	{
+	if(t->n==1&& carry==1)
+	{
+		t->n=0;
+		carry=1;
+	}
+	else
+	if(t->n==0&& carry==1)
+	{
+		t->n=1;
+		carry=0;
+	}
+	else
+	if(carry==0)
+	break;
+	
+	t=t->prev;
+}
+displayBinary();
+}
+int main()
+{
+	int num,num1;
+	binary n1,n3,n2;
+	int choice=1;
+	do
+	{
+		cout<<"\n\n=========Binary Number Operations========\n";
+		cout<<"1. Generate binary\n2.One's Complement\n3.Two's Complement\n4. Addition\n0.Exit\nEnter your choice: ";
+		cin>>choice;
+		switch(choice)
+		{
+			case 1: cout<<"\nENter Number in decimal form: ";
+					cin>>num;
+					n1.generateBinary(num);
+					cout<<"\nBinary Representation: ";
+					n1.displayBinary();
+					break;
+			case 2:cout<<"\nENter Number in decimal form: ";
+					cin>>num;
+					n1.generateBinary(num);
+					cout<<"\nBinary Representation: ";
+					n1.displayBinary();
+					cout<<"\nOnes Complement: ";
+					n1.onesComplement();
+					n1.displayBinary();
+					break;
+			case 3:cout<<"\nENter Number in decimal form: ";
+					cin>>num;
+					n1.generateBinary(num);
+					cout<<"\nBinary Representation: ";
+					n1.displayBinary();
+					cout<<"\nTwos complement; ";
+					n1.twoscomplement();
+					break;
+			case 4: cout<<"\nENter Two Numbers: ";
+					cin>>num>>num1;
+					n1.generateBinary(num);
+					n2.generateBinary(num1);
+					n1.displayBinary();
+					cout<<" + ";
+					n2.displayBinary();
+					cout<<"= ";
+					n3=n1+n2;
+					n3.displayBinary();	
+                                      }
+	}while(choice!=0);
+	n1.generateBinary(7);
+	cout<<"\nBinary Representation: ";
+	n1.displayBinary();
+//	
+//	cout<<"\nOnes Complement: ";
+//	n1.displayBinary();
+	cout<<"\nTwos complement; ";
+	n1.twoscomplement();
+	return 0;
+}
+
+#D25
+
+#include<iostream>
+#include<string.h>
+#define MAX 100
+using namespace std;
+
+ struct stack
+ {
+     char data[MAX];
+     int top;
+ };
+
+ void init(stack *stck)
+ {
+     int i;
+     for(i=0;i<MAX;i++)
+     {
+         stck->data[i]='\0';
+         stck->top=-1;
+     }
+ }
+
+ void print(stack stck)
+ {
+     int i;
+     cout<<"\n Stack elements are";
+     for(i=0;i<MAX;i++)
+     {
+         cout<<"stck.data[i]";
+         cout<<"\t top="<<stck.top;
+     }
+ }
+
+ int isempty(stack stck)
+ {
+     return stck.top==-1?1:0;
+ }
+
+ int isfull(stack stck)
+ {
+     return stck.top==MAX-1?1:0;
+
+ }
+
+ void push(stack *stck,char data[MAX])
+ {
+     int i;
+     for(i=0;data[i]!='\0';i++)
+     {
+     stck->top+=1;
+     stck->data[stck->top]=data[i];
+     }
+ }
+
+ void push1(stack *stck,char data[MAX])
+ {
+     int i;
+     for(i=0;data[i]!='\0';i++)
+     {
+       if(data[i]!=' ')
+       {
+     stck->top+=1;
+     stck->data[stck->top]=data[i];
+       }
+     }
+ }
+
+
+ void pop(stack *stck)
+ {
+     char rev[MAX];
+     int i=0;
+     while(!isempty(*stck))
+     {
+     rev[i]=stck->data[stck->top];
+     stck->top-=1;
+     i++;
+     }
+     rev[i]='\0';
+     cout<<"\n Original string is="<<stck->data;
+     cout<<"\n reverse string is=";
+     cout<<rev;
+     if(strcmp(rev,stck->data))
+     {
+     cout<<"\n string is not palindrome";
+     }
+     else
+     {
+     cout<<"\n String is palindrome";
+     }
+ }
+
+ int main()
+ {
+     stack stck;
+     char data[MAX]={'E','v','a',',',' ','c','a','n',' ','I',' ','s','e','e',' ','b','e','e','s',' ','i','n',' ','a',' ','c','a','v','e','\0'};
+
+     init(&stck);
+     int ch,i,j=0;
+
+     while(ch!=3)
+     {
+     cout<<"\n1.Push the string;Print reverse string & check palindrome or not(pop)";
+
+     cout<<"\n2.Remove blank space,convert upperspace into lowercase,push the string & check palindrome or not";
+
+     cout<<"\n3.Exit";
+
+     cout<<"\n Enter your choice";
+     cin>>ch;
+
+     switch(ch)
+     {
+     case 1:
+         if(isfull(stck))
+         {
+         cout<<"\n Stack is full";
+         }
+         else
+         {
+         push(&stck,data);
+         }
+         if(isempty(stck))
+         {
+         cout<<"\n Stack is empty";
+         }
+         else
+         {
+         pop(&stck);
+         }
+         break;
+
+     case 2:
+         init(&stck);
+         if(isfull(stck))
+         {
+         cout<<"\n Stack is full";
+         }
+         else
+         {
+         for(i=0;data[i]!='\0';i++)
+          {
+            if(data[i]!=' ')
+            {
+             if(data[i]>=65 && data[i]<=90)
+              {
+                data[i]=data[i]+32;
+              }
+
+            }
+          }
+        push1(&stck,data);
+
+         }
+         pop(&stck);
+         break;
+         }
+     }
+     return (0);
+ }
+
+ #D27
+
+ #include<iostream>
+#include<stack>
+using namespace std;
+bool isOperator(char c)
+{
+if(c=='+'||c=='-'||c=='*'||c=='/'||c=='^')
+{
+return true;
+}
+else
+{
+return false;
+}
+}
+int precedence(char c)
+{
+ if(c == '^')
+ return 3;
+ else if(c == '*' || c == '/')
+ return 2;
+ else if(c == '+' || c == '-')
+ return 1;
+ else
+ return -1;
+}
+string InfixToPostfix(stack<char> s, string infix)
+{
+string postfix;
+for(int i=0;i<infix.length();i++)
+{
+if((infix[i] >= 'a' && infix[i] <= 'z')
+||(infix[i] >= 'A' && infix[i] <= 'Z'))
+{
+postfix+=infix[i];
+}
+else if(infix[i] == '(')
+{
+s.push(infix[i]);
+}
+else if(infix[i] == ')')
+{
+while((s.top()!='(') && (!s.empty()))
+{
+char temp=s.top();
+postfix+=temp;
+s.pop();
+}
+if(s.top()=='(')
+{
+s.pop();
+}
+}
+else if(isOperator(infix[i]))
+{
+if(s.empty())
+{
+s.push(infix[i]);
+}
+else
+{
+if(precedence(infix[i])>precedence(s.top()))
+{
+s.push(infix[i]);
+}
+else if((precedence(infix[i])==precedence(s.top()))&&(infix[i]=='^'))
+{
+s.push(infix[i]);
+}
+else
+{
+while((!s.empty())&&( precedence(infix[i])<=precedence(s.top())))
+{
+postfix+=s.top();
+s.pop();
+}
+s.push(infix[i]);
+}
+}
+}
+}
+while(!s.empty())
+{
+postfix+=s.top();
+s.pop();
+}
+return postfix;
+}
+int main()
+{
+ string infix_exp, postfix_exp;
+ cout<<"Enter a Infix Expression :"<<endl;
+ cin>>infix_exp;
+ stack <char> stack;
+cout<<"INFIX EXPRESSION: "<<infix_exp<<endl;
+ postfix_exp = InfixToPostfix(stack, infix_exp);
+ cout<<endl<<"POSTFIX EXPRESSION: "<<postfix_exp;
+
+return 0;
+}
+
+#E29
+
+#include <iostream>
+#define MAX 10
+using namespace std;
+
+struct queue
+{
+    int data[MAX];
+    int front, rear;
+};
+
+class Queue
+{
+    struct queue q;
+
+public:
+    Queue() { q.front = q.rear = -1; }
+    int isempty();
+    int isfull();
+    void enqueue(int);
+    int delqueue();
+    void display();
+};
+
+int Queue::isempty()
+{
+    return (q.front == q.rear) ? 1 : 0;
+}
+
+int Queue::isfull()
+{
+    return (q.rear == MAX - 1) ? 1 : 0;
+}
+
+void Queue::enqueue(int x)
+{
+    if (!isfull())
+    {
+        q.data[++q.rear] = x;
+        cout << "Enqueued: " << x << endl;
+    }
+    else
+    {
+        cout << "Queue is overflow!!!\n\n";
+    }
+}
+
+int Queue::delqueue()
+{
+    if (!isempty())
+    {
+        return q.data[++q.front];
+    }
+    else
+    {
+        cout << "Queue is underflow!!!\n\n";
+        // You may want to return a special value or throw an exception here
+        // to indicate that the queue is empty.
+        return -1; // Placeholder for an empty queue
+    }
+}
+
+void Queue::display()
+{
+    if (!isempty())
+    {
+        cout << "\nQueue contains: ";
+        for (int i = q.front + 1; i <= q.rear; i++)
+            cout << q.data[i] << " ";
+        cout << endl;
+    }
+    else
+    {
+        cout << "\nQueue is empty!!!\n\n";
+    }
+}
+
+int main()
+{
+    Queue obj;
+    int ch, x;
+    do
+    {
+        cout << "\n 1. Insert Job\n 2. Delete Job\n 3. Display\n 4. Exit\n Enter your choice: ";
+        cin >> ch;
+        switch (ch)
+        {
+        case 1:
+            if (!obj.isfull())
+            {
+                cout << "\nEnter data: ";
+                cin >> x;
+                obj.enqueue(x);
+            }
+            else
+            {
+                cout << "Queue is overflow!!!\n\n";
+            }
+            break;
+        case 2:
+            if (!obj.isempty())
+            {
+                cout << "\nDeleted Element = " << obj.delqueue() << endl;
+                cout << "Remaining Jobs: ";
+                obj.display();
+            }
+            else
+            {
+                cout << "\nQueue is underflow!!!\n\n";
+            }
+            break;
+        case 3:
+            obj.display();
+            break;
+        case 4:
+            cout << "\nExiting Program.....\n";
+            break;
+        default:
+            cout << "\nInvalid Choice! Please enter a valid option.\n";
+        }
+    } while (ch != 4);
+
+    return 0;
+}
+
+#E30
+
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+using namespace std;
+typedef struct n {    // node declaration 
+   int p;
+   int info;
+   struct n *l;
+}n1;
+
+class Priority_Queue 
+{
+   private:
+      			//Declare a front pointer f and initialize it to NULL.
+      n1 *f;
+   public:
+   Priority_Queue() //constructor 
+     {
+         f = NULL;
+      }
+     
+   void insert(int i, int p) 
+     {
+         n1 *t, *q;
+         t = new n;
+         t->info = i;
+         t->p = p;
+         if (f == NULL || p < f->p) 
+	{
+            t->l= f;
+            f = t;
+         } 
+	else 
+	{
+            q = f;
+            while (q->l != NULL && q->l->p <= p)
+               q = q->l;
+               t->l = q->l;
+               q->l = t;
+         }
+      }
+    void del() 
+    {
+         n1 *t;
+         if(f == NULL) //if queue is null
+            cout<<"Queue Underflow\n";
+         else 
+          {
+            t = f;
+            cout<<"Deleted item is: "<<t->info<<endl;
+            f = f->l;
+            free(t);
+         }
+      }
+      void show() //print queue 
+      { 
+	 n1 *ptr;
+         ptr = f;
+         if (f == NULL)
+            cout<<"Queue is empty\n";
+         else
+          {
+            cout<<"Queue is :\n";
+            cout<<"Priority Item\n";
+            while(ptr != NULL) {
+               cout<<ptr->p<<" "<<ptr->info<<endl;
+               ptr = ptr->l;
+            }
+         }
+      }
+};
+int main() {
+   int c, i, p;
+   Priority_Queue pq;
+   do //perform switch opeartion
+   {
+      cout<<"1.Insert\n";
+      cout<<"2.Delete\n";
+      cout<<"3.Display\n";
+      cout<<"4.Exit\n";
+      cout<<"Enter your choice : ";
+      cin>>c;
+      switch(c) {
+         case 1:
+            cout<<"Input the item value to be added in the queue : ";
+            cin>>i;
+            cout<<"Enter its priority : ";
+            cin>>p;
+            pq.insert(i, p);
+            break;
+         case 2:
+            pq.del();
+            break;
+         case 3:
+            pq.show();
+            break;
+         case 4:
+            break;
+         default:
+         cout<<"Wrong choice\n";
+      }
+   }
+   while(c != 4);
+   return 0;
+}
+
+#E32
+
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+class pizza
+{
+ int front,rear,q[5];
+ public:
+ pizza()
+ {
+ front=-1;
+ rear=-1;
+ }
+ int isfull()
+ {
+
+if((front==0&&rear==4)||front==rear+1)
+ {
+ return 1;
+ }
+else
+{
+ return 0;
+ }
+ }
+ int isempty()
+ {
+ if(front==-1&&rear==-1)
+ {
+ return 1;
+ }
+ else
+{
+ return 0;
+ }
+ }
+ void add()
+ {
+ if(isfull()==0)
+ {
+ cout<<"\n Enter the Pizza ID: ";
+ if(front==-1&&rear==-1)
+ {
+ front=0;
+ rear=0;
+ cin>>q[rear];
+ }
+ else
+ {
+ rear=(rear+1)%5;
+ cin>>q[rear];
+ }
+ char c;
+ cout<<" Do you want to add another order ? ";
+ cin>>c;
+ if(c=='y'||c=='Y')
+ add();
+ }
+ else
+ {
+ cout<<"\n Orders are full ";
+ }
+
+ }
+ void serve()
+ {
+ if(isempty()==0)
+ {
+ if(front==rear)
+ {
+ cout<<"\n Order served is : "<<q[front];
+ front=-1;
+ rear=-1;
+ }
+ else
+ {
+ cout<<"\n Order served is : "<<q[front];
+ front=(front+1)%5;
+ }
+ }
+ else
+ {
+ cout<<"\n Orders are empty ";
+ }
+ }
+ void display()
+ {
+ if(isempty()==0)
+ {
+ for(int
+i=front;i!=rear;i=(i+1)%5)
+ {
+ cout<<q[i]<<"<- ";
+ }
+ cout<<q[rear];
+ }
+ else
+ {
+ cout<<"\n Orders are empty";
+ }
+ }
+ void check()
+ {
+ int ch;
+cout<<"\n\n * * * * PIZZA PARLOUR * * * * \n\n";
+ cout<<"\n 1. Add a Pizza \n 2. Display the Orders \n 3. Serve a pizza \n 4. Exit \n Enter your choice : ";
+ cin>>ch;
+switch(ch)
+{
+ case 1:
+ add();
+break;
+
+ case 2:
+
+display();
+ break;
+
+ case 3:
+
+serve();
+ break;
+
+ case 4:
+
+exit(0);
+
+ default:
+ cout<<"Invalid choice ";
+
+check();
+ }
+char ch1;
+cout<<"\n Do you want to continue? ";
+ cin>>ch1;
+ if(ch1=='y'||ch1=='Y')
+check();
+ }
+};
+int main()
+{
+ pizza p1;
+ p1.check();
+ return 0;
+}
+
