@@ -1,0 +1,262 @@
+
+'''A1
+
+1. START
+
+2. Declare 3 lists Say group A, group B and group c for cricket, badminton and football.
+
+3. Take input from user.
+
+4. Print the lists...
+
+5. Find out the names of students who play both cricket and badminton, either cricket or badminton but not both, neither cricket nor badminton, cricket and football but not badminton
+
+6. Display result.
+
+7. STOP
+
+A2
+
+Start
+
+create empty list
+
+Enter total number of students.
+
+Store student marks in list
+
+Write Function to calculate average marks of class
+
+Write Function to find lowest marks of class.
+
+Write function to find highest marks of class
+
+Write function to count absent students in test.
+
+Write Functions to count marks of maximum. Frequency
+
+Exit
+
+A5
+
+Start
+
+SHP2 Take String from user
+
+SHP 3 : Display word with the longest length.
+
+Skp 4
+
+1: Find Frequency of occurrence of particular character in the string. "Check that given string is palindrome or not
+
+Step 5
+
+SHP 6
+
+• Display index of first apperance of the Substring
+
+Shp 7
+
+Count the occurence of each word in a giren string
+
+Sep 8
+
+Stop
+
+A7
+
+START
+
+STEP 2: Take user input for number of rows say n.
+
+STEP 3: Define a function and apply necessary condition..
+
+STEP 4: Display the result.
+
+STEP 5: STOP.
+
+B11a
+
+Step1: START
+
+step 2: Declare an array say 'art'
+
+step 3: Take input from user ie present toll numbers and roll number to be searched.
+
+step 4: Define function to find given roll number using linear and sentinel search.
+
+Step 5: Display result.
+
+Step 6: STOP!
+
+B11b
+
+START
+
+STEP 2: Declare an array say 'arr?
+
+STEP 3: Take input From user about student roll number
+
+STEP 4: Define function to find given roll number ie Key element using binary and Fibonacci search.
+
+STEP 5: Display the result
+
+STEP STOP.
+
+B14
+
+SHP 1: START
+
+step 2: Declare Function for accept array
+
+Step 3: Declare Function for display array step 4: Declare Function for selection sort
+
+steps: Declare Function for bubble sort.
+
+step6: Display First year percentage of students.
+
+step 7: Display Sorled array 
+Step 8: Display sorted array using array using bubble sort
+
+Selection sost
+
+
+step9: Display top five student scores of the array 
+
+B15
+
+Step 1: Start
+
+step2: Ener the number of students from user
+
+step3: Declare the function to display array step 4: Declare a function for insertion sort
+
+sep s: Declare a function for shell sort.
+
+Step 6: Display second year percentage of students.
+
+Sup 7: Display sorted array by using insertion sort. Step 8: Display Sorted array by usinfo shell sort
+
+sup 9: Display top five scores of students.
+
+SHO 10: STOP!
+
+C19
+
+Stepl:- Start
+
+Step 2: Create a class Declare Functions insert() delete () and display()
+
+Step 3: Write the main function with do - while loop and switch case.
+
+step 4: In switch case call the functions oneby one.
+
+Step 5: Declare last case as wrong choice.
+
+Step 6: Stop
+
+C22
+
+SHPI: Start
+
+step 2: Creak struct Node
+
+step 3: Declare class info and call various functions in it.
+
+Step 4: Accept student data for both set A and B
+
+steps: Define function to display data.
+
+step6: In main, display menu showing different linked list operation to be performed.
+
+Step 7: Display output
+
+Step 8: Stop
+
+C23
+
+Stept Start
+
+step 2: Create a class. Declare Functions for addition, is complement & 2's complement
+
+Step 3: write the main function with do - while loop and switch loop.
+
+Step 4: In switch case call the functions one by one steps: Declare last case as wrong choice.
+
+Step 6: STOP
+
+D25
+
+
+Step1: Start
+
+Step 2: Declare a variable say data
+
+Step 3: Take input from user
+
+Step 4: Define functions to check whether the String is palindrome or not and reverse string
+
+steps: Display result
+
+step: Stop
+
+D27
+
+Step1: Start
+
+Step2: perlare variable say infix expression an postfix - expression
+
+step 3: Take input from user ie expression
+
+Step 4: Define Function to convert infix expression to postfix
+
+steps: Display result.
+
+steps: Stop.
+
+E29
+
+
+Step1: Start
+
+step2: (reate a class Queue.
+
+step 3: Declare Function insert (), delete (), display()
+
+Stepy write main function with do - while loop. and switch case.
+
+steps: Enter the choices in switch case.
+
+Step 6: Stop.
+
+E 30
+
+SHPI: START
+
+Step 2: Create a class. Declare Function insert() delete() and display ()
+
+step 3: write the main function with do while loop. und switch case.
+
+Step 4: In switch case call the functions one by one
+
+steps: Declare last case as wrong choice
+
+SHP6: STOP.
+
+E32
+
+
+STEP 1 START
+
+STEP 2: Accept the number of orders from customer
+
+STEP 3: Write a function to serve the or ders
+
+STEP 4: Display the number of orders remaining to serve 
+
+STEP 5: STOP
+'''
+
+
+
+
